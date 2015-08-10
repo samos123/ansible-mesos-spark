@@ -1,0 +1,12 @@
+---
+- name: Download spark from {{ spark_download_url }}
+  get_url: url={{ spark_download_url }} dest=/srv/spark-{{ spark_version }}-bin-{{ spark_package_type }}.tgz sha256sum={{ spark_binary_sha256sum }}
+
+- name: Extract spark to /srv/spark-{{ spark_version }}-bin-{{ spark_package_type }}
+  shell: tar xzf /srv/spark-{{ spark_version }}-bin-{{ spark_package_type }}.tgz creates=/srv/spark-{{ spark_version }}-bin-{{ spark_package_type }} chdir=/srv
+
+- name: Create spark-env.sh
+  template: src=spark-env.sh.j2 dest=/srv/spark-{{ spark_version }}-bin-{{ spark_package_type }}/conf/spark-env.sh
+
+- name: Create spark-defaults.conf
+  template: src=spark-defaults.conf.j2 dest=/srv/spark-{{ spark_version }}-bin-{{ spark_package_type }}/conf/spark-defaults.conf

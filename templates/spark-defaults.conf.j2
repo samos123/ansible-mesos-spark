@@ -1,0 +1,4 @@
+spark.master                     mesos://{{ mesos_master }}:5050
+# spark.serializer                 org.apache.spark.serializer.KryoSerializer
+spark.driver.memory              {{ driver_memory }}
+spark.executor.uri               file:///srv/spark-{{ spark_version }}-bin-{{ spark_package_type }}.tgz

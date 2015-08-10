@@ -1,0 +1,8 @@
+---
+spark_version: 1.4.1
+apache_mirror: mirrors.tuna.tsinghua.edu.cn/apache/
+spark_package_type: hadoop2.4
+spark_download_url: http://{{ apache_mirror }}/spark/spark-{{ spark_version }}/spark-{{ spark_version }}-bin-{{ spark_package_type }}.tgz
+spark_binary_sha256sum: bc8c79188db9a2b6104da21b3b380838edf1e40acbc79c84ef2ed2ad82ecdbc3
+driver_memory: 2g
+mesos_master: mesos-master
