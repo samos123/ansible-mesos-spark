@@ -1,17 +1,17 @@
 ---
 - name: Download spark from {{ spark_download_url }}
-  get_url: url={{ spark_download_url }} dest=/srv/spark-{{ spark_version }}-bin-{{ spark_package_type }}.tgz checksum="md5:{{ spark_binary_md5sum }}"
-  when: ansible_version.major >= 2
+  get_url: url={{ spark_download_url }} dest=/srv/spark-download.tgz checksum="md5:{{ spark_download_md5sum }}"
+  when: ansible_version.major >= 2 and spark_download_md5sum
 
 - name: Download spark from {{ spark_download_url }}
-  get_url: url={{ spark_download_url }} dest=/srv/spark-{{ spark_version }}-bin-{{ spark_package_type }}.tgz
-  when: ansible_version.major < 2
+  get_url: url={{ spark_download_url }} dest=/srv/spark-download.tgz
+  when: ansible_version.major < 2 and not spark_download_md5sum
 
-- name: Extract spark to /srv/spark-{{ spark_version }}-bin-{{ spark_package_type }}
-  shell: tar xzf /srv/spark-{{ spark_version }}-bin-{{ spark_package_type }}.tgz creates=/srv/spark-{{ spark_version }}-bin-{{ spark_package_type }} chdir=/srv
+- name: Extract spark /srv/spark-download.tgz to /srv/{{ spark_directory_name }}
+  shell: tar xzf /srv/spark-download.tgz creates=/srv/{{ spark_directory_name }} chdir=/srv
 
 - name: Create spark-env.sh
-  template: src=spark-env.sh.j2 dest=/srv/spark-{{ spark_version }}-bin-{{ spark_package_type }}/conf/spark-env.sh
+  template: src=spark-env.sh.j2 dest=/srv/{{ spark_directory_name }}/conf/spark-env.sh
 
 - name: Create spark-defaults.conf
-  template: src=spark-defaults.conf.j2 dest=/srv/spark-{{ spark_version }}-bin-{{ spark_package_type }}/conf/spark-defaults.conf
+  template: src=spark-defaults.conf.j2 dest=/srv/{{ spark_directory_name }}/conf/spark-defaults.conf

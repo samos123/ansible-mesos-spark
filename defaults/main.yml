@@ -1,8 +1,6 @@
 ---
-spark_version: 1.5.1
-apache_mirror: mirrors.tuna.tsinghua.edu.cn/apache/
-spark_package_type: hadoop2.6
-spark_download_url: http://{{ apache_mirror }}/spark/spark-{{ spark_version }}/spark-{{ spark_version }}-bin-{{ spark_package_type }}.tgz
-spark_binary_md5sum: 6b0830240dc9f18e3a1ab29994cc4d20
+spark_directory_name: spark-1.5.1-bin-hadoop2.6
+spark_download_url: http://{{ apache_mirror }}/spark/spark-1.5.1/{{ spark_directory_name }}.tgz
+spark_download_md5sum: 6b0830240dc9f18e3a1ab29994cc4d20
 driver_memory: 2g
 mesos_master: mesos-master
